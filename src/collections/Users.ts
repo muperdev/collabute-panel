@@ -22,6 +22,7 @@ export const Users: CollectionConfig = {
     },
     {
       name: 'whyTheyInterested',
+      label: 'Why They Interested',
       type: 'textarea',
     },
     {
