@@ -21,6 +21,10 @@ export const Users: CollectionConfig = {
       required: true,
     },
     {
+      name: 'whyTheyInterested',
+      type: 'textarea',
+    },
+    {
       name: 'phoneNumber',
       type: 'text',
     },
