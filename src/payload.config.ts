@@ -45,7 +45,7 @@ export default buildConfig({
       collections: ['blogs'],
       uploadsCollection: 'media',
       generateTitle: ({ doc }) => `Contribunation.com — ${doc.title}`,
-      generateDescription: ({ doc }) => doc.excerpt,
+      generateDescription: ({ doc }) => doc.description,
     }),
   ],
 })
