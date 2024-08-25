@@ -26,6 +26,8 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  cors: ['https://contribunation.com'],
+  csrf: ['https://contribunation.com'],
   serverURL: process.env.SERVER_URL,
   db: postgresAdapter({
     pool: {
