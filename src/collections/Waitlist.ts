@@ -8,6 +8,8 @@ export const Waitlists: CollectionConfig = {
     useAsTitle: 'email',
   },
   access: {
+    
+    create: () => true,
     update: isAdmin,
     delete: isAdmin,
   },
