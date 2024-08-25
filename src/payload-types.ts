@@ -13,6 +13,8 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    blogs: Blog;
+    waitlists: Waitlist;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -28,6 +30,7 @@ export interface Config {
 export interface UserAuthOperations {
   forgotPassword: {
     email: string;
+    password: string;
   };
   login: {
     email: string;
@@ -39,6 +42,7 @@ export interface UserAuthOperations {
   };
   unlock: {
     email: string;
+    password: string;
   };
 }
 /**
@@ -48,6 +52,7 @@ export interface UserAuthOperations {
 export interface User {
   id: number;
   name: string;
+  whyTheyInterested?: string | null;
   phoneNumber?: string | null;
   role?: ('admin' | 'user') | null;
   updatedAt: string;
@@ -79,6 +84,59 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blogs".
+ */
+export interface Blog {
+  id: number;
+  slug?: string | null;
+  title: string;
+  image: number | Media;
+  description: string;
+  richtext?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  faq?:
+    | {
+        question?: string | null;
+        answer?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    image?: (number | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "waitlists".
+ */
+export interface Waitlist {
+  id: number;
+  fullName: string;
+  email: string;
+  userType: 'developer' | 'startup' | 'other';
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
