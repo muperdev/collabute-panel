@@ -14,6 +14,7 @@ import { seoPlugin } from '@payloadcms/plugin-seo'
 import Documents from './collections/Documents'
 import Project from './collections/Project'
 import Stacks from './collections/Stacks'
+import Cto from './collections/Cto'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -25,6 +26,7 @@ export default buildConfig({
   collections: [
     Users, 
     Project,
+    Cto,
     Media, 
     Blogs, 
     Waitlists, 

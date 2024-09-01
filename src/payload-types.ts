@@ -13,6 +13,7 @@ export interface Config {
   collections: {
     users: User;
     projects: Project;
+    cto: Cto;
     media: Media;
     blogs: Blog;
     waitlists: Waitlist;
@@ -145,6 +146,20 @@ export interface Stack {
     | null;
   popularity: number;
   use_cases?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cto".
+ */
+export interface Cto {
+  id: number;
+  name: string;
+  experience: number;
+  specialization: string;
+  projects?: (number | Project)[] | null;
+  availability?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
