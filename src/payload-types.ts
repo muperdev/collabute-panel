@@ -52,7 +52,7 @@ export interface UserAuthOperations {
 export interface User {
   id: number;
   name: string;
-  whyTheyInterested?: string | null;
+  type?: ('startup' | 'company' | 'developer') | null;
   phoneNumber?: string | null;
   role?: ('admin' | 'user') | null;
   updatedAt: string;
