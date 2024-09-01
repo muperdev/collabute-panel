@@ -12,9 +12,12 @@ export interface Config {
   };
   collections: {
     users: User;
+    projects: Project;
     media: Media;
     blogs: Blog;
     waitlists: Waitlist;
+    documents: Document;
+    stacks: Stack;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -65,6 +68,85 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  title: string;
+  description: string;
+  tasks?:
+    | {
+        task?: string | null;
+        status?: ('not-started' | 'in-progress' | 'completed') | null;
+        dueDate?: string | null;
+        assignee?: (number | null) | User;
+        priority?: ('low' | 'medium' | 'high') | null;
+        notes?: string | null;
+        attachments?: (number | null) | Document;
+        id?: string | null;
+      }[]
+    | null;
+  startDate: string;
+  endDate?: string | null;
+  status: 'planned' | 'in-progress' | 'completed' | 'on-hold';
+  budget?: number | null;
+  tags?:
+    | {
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents".
+ */
+export interface Document {
+  id: number;
+  title: string;
+  description?: string | null;
+  tags?:
+    | {
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  stacks?: (number | null) | Stack;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "stacks".
+ */
+export interface Stack {
+  id: number;
+  name: string;
+  description?: string | null;
+  technologies?:
+    | {
+        technology: string;
+        id?: string | null;
+      }[]
+    | null;
+  popularity: number;
+  use_cases?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

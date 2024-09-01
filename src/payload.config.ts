@@ -1,4 +1,3 @@
-// storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
@@ -12,6 +11,9 @@ import { Media } from './collections/Media'
 import { Waitlists } from './collections/Waitlist'
 import Blogs from './collections/Blog'
 import { seoPlugin } from '@payloadcms/plugin-seo'
+import Documents from './collections/Documents'
+import Project from './collections/Project'
+import Stacks from './collections/Stacks'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -20,7 +22,15 @@ export default buildConfig({
   admin: {
     user: Users.slug,
   },
-  collections: [Users, Media, Blogs, Waitlists],
+  collections: [
+    Users, 
+    Project,
+    Media, 
+    Blogs, 
+    Waitlists, 
+    Documents,
+    Stacks,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
