@@ -13,6 +13,7 @@ export interface Config {
   collections: {
     users: User;
     projects: Project;
+    startups: Startup;
     cto: Cto;
     media: Media;
     blogs: Blog;
@@ -146,6 +147,55 @@ export interface Stack {
     | null;
   popularity: number;
   use_cases?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "startups".
+ */
+export interface Startup {
+  id: number;
+  name: string;
+  description?: string | null;
+  foundingDate?: string | null;
+  cto?: (number | null) | Cto;
+  licenseType?:
+    | (
+        | 'sole_proprietorship'
+        | 'partnership'
+        | 'llc'
+        | 'corporation'
+        | 'plc'
+        | 'cooperative'
+        | 'nonprofit_organization'
+        | 'branch_office'
+        | 'subsidiary'
+        | 'joint_venture'
+        | 'franchise'
+        | 'holding_company'
+      )
+    | null;
+  licenseFile?: (number | null) | Document;
+  website?: string | null;
+  industry?: string | null;
+  responsiblePerson: number | User;
+  contactInformation: {
+    email: string;
+    phone?: string | null;
+    address?: string | null;
+  };
+  legalInformation?: {
+    companyRegistrationNumber?: string | null;
+    taxIdentificationNumber?: string | null;
+  };
+  fundingInformation?: {
+    fundingStage?: ('Pre-seed' | 'Seed' | 'Series A' | 'Series B' | 'Series C+') | null;
+    totalFundingRaised?: number | null;
+    lastFundingDate?: string | null;
+  };
+  teamSize?: number | null;
+  productStage?: ('Idea' | 'Prototype' | 'MVP' | 'Beta' | 'Launched' | 'Growth') | null;
   updatedAt: string;
   createdAt: string;
 }
