@@ -12,9 +12,14 @@ export interface Config {
   };
   collections: {
     users: User;
+    projects: Project;
+    startups: Startup;
+    cto: Cto;
     media: Media;
     blogs: Blog;
     waitlists: Waitlist;
+    documents: Document;
+    stacks: Stack;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -52,7 +57,7 @@ export interface UserAuthOperations {
 export interface User {
   id: number;
   name: string;
-  whyTheyInterested?: string | null;
+  type?: ('startup' | 'company' | 'developer') | null;
   phoneNumber?: string | null;
   role?: ('admin' | 'user') | null;
   updatedAt: string;
@@ -65,6 +70,148 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  title: string;
+  description: string;
+  tasks?:
+    | {
+        task?: string | null;
+        status?: ('not-started' | 'in-progress' | 'completed') | null;
+        dueDate?: string | null;
+        assignee?: (number | null) | User;
+        priority?: ('low' | 'medium' | 'high') | null;
+        notes?: string | null;
+        attachments?: (number | null) | Document;
+        id?: string | null;
+      }[]
+    | null;
+  startDate: string;
+  endDate?: string | null;
+  status: 'planned' | 'in-progress' | 'completed' | 'on-hold';
+  budget?: number | null;
+  tags?:
+    | {
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents".
+ */
+export interface Document {
+  id: number;
+  title: string;
+  description?: string | null;
+  tags?:
+    | {
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  stacks?: (number | null) | Stack;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "stacks".
+ */
+export interface Stack {
+  id: number;
+  name: string;
+  description?: string | null;
+  technologies?:
+    | {
+        technology: string;
+        id?: string | null;
+      }[]
+    | null;
+  popularity: number;
+  use_cases?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "startups".
+ */
+export interface Startup {
+  id: number;
+  name: string;
+  description?: string | null;
+  foundingDate?: string | null;
+  cto?: (number | null) | Cto;
+  licenseType?:
+    | (
+        | 'sole_proprietorship'
+        | 'partnership'
+        | 'llc'
+        | 'corporation'
+        | 'plc'
+        | 'cooperative'
+        | 'nonprofit_organization'
+        | 'branch_office'
+        | 'subsidiary'
+        | 'joint_venture'
+        | 'franchise'
+        | 'holding_company'
+      )
+    | null;
+  licenseFile?: (number | null) | Document;
+  website?: string | null;
+  industry?: string | null;
+  responsiblePerson: number | User;
+  contactInformation: {
+    email: string;
+    phone?: string | null;
+    address?: string | null;
+  };
+  legalInformation?: {
+    companyRegistrationNumber?: string | null;
+    taxIdentificationNumber?: string | null;
+  };
+  fundingInformation?: {
+    fundingStage?: ('Pre-seed' | 'Seed' | 'Series A' | 'Series B' | 'Series C+') | null;
+    totalFundingRaised?: number | null;
+    lastFundingDate?: string | null;
+  };
+  teamSize?: number | null;
+  productStage?: ('Idea' | 'Prototype' | 'MVP' | 'Beta' | 'Launched' | 'Growth') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cto".
+ */
+export interface Cto {
+  id: number;
+  name: string;
+  experience: number;
+  specialization: string;
+  projects?: (number | Project)[] | null;
+  availability?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

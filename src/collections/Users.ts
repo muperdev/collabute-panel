@@ -21,9 +21,23 @@ export const Users: CollectionConfig = {
       required: true,
     },
     {
-      name: 'whyTheyInterested',
-      label: 'Why They Interested',
-      type: 'textarea',
+      name: 'type',
+      type: 'select',
+      // required: true,
+      options: [
+        {
+          label: 'Startup',
+          value: 'startup',
+        },
+        {
+          label: 'Company',
+          value: 'company',
+        },
+        {
+          label: 'Developer',
+          value: 'developer',
+        },
+      ],
     },
     {
       name: 'phoneNumber',
