@@ -23,6 +23,9 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     user: Users.slug,
+    components: {
+      afterLogin: ['src/component/oauth-login-button/index.tsx#OAuthLoginButton'],
+    },
   },
   collections: [Users, Project, Startup, Cto, Media, Blogs, Waitlists, Documents, Stacks],
   editor: lexicalEditor(),
@@ -49,18 +52,35 @@ export default buildConfig({
       tokenEndpoint: 'https://github.com/login/oauth/access_token',
       scopes: ['user:email'],
       providerAuthorizationUrl: 'https://github.com/login/oauth/authorize',
+
       getUserInfo: async (accessToken: string) => {
         const response = await fetch('https://api.github.com/user', {
-          headers: { 
+          headers: {
             Authorization: `token ${accessToken}`,
-            Accept: 'application/json'
+            Accept: 'application/json',
           },
         })
+        const responseEmailData = await fetch('https://api.github.com/user/emails', {
+          headers: {
+            Authorization: `token ${accessToken}`,
+            Accept: 'application/json',
+          },
+        })
+
         const user = await response.json()
-        return { email: user.email, sub: user.id.toString() }
+        const emails = await responseEmailData.json()
+        const primaryEmail = emails?.find((email: any) => email?.primary === true)
+        return {
+          email: primaryEmail.email,
+          sub: user.id.toString(),
+          name: user?.login,
+          githubId: user?.id,
+        }
       },
       successRedirect: () => '/admin',
-      failureRedirect: () => '/login',
+      failureRedirect: (req, err) => {
+        return '/admin/login'
+      },
     }),
     vercelBlobStorage({
       enabled: true,

@@ -26,6 +26,7 @@ import { MetaTitleComponent as MetaTitleComponent_24 } from '@payloadcms/plugin-
 import { MetaDescriptionComponent as MetaDescriptionComponent_25 } from '@payloadcms/plugin-seo/client'
 import { MetaImageComponent as MetaImageComponent_26 } from '@payloadcms/plugin-seo/client'
 import { PreviewComponent as PreviewComponent_27 } from '@payloadcms/plugin-seo/client'
+import { OAuthLoginButton as OAuthLoginButton_28 } from 'src/component/oauth-login-button/index.tsx'
 
 export const importMap = {
   "@payloadcms/richtext-lexical/client#RichTextCell": RichTextCell_0,
@@ -55,5 +56,6 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaTitleComponent": MetaTitleComponent_24,
   "@payloadcms/plugin-seo/client#MetaDescriptionComponent": MetaDescriptionComponent_25,
   "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_26,
-  "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_27
+  "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_27,
+  "src/component/oauth-login-button/index.tsx#OAuthLoginButton": OAuthLoginButton_28
 }

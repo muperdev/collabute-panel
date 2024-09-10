@@ -42,6 +42,7 @@ export const Users: CollectionConfig = {
           value: 'developer',
         },
       ],
+      defaultValue: 'developer',
     },
     {
       name: 'phoneNumber',
@@ -65,6 +66,7 @@ export const Users: CollectionConfig = {
           value: 'user',
         },
       ],
+      defaultValue: 'user',
     },
     {
       name: 'githubId',
