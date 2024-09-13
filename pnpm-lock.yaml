@@ -42,6 +42,9 @@ importers:
       payload:
         specifier: 3.0.0-beta.90
         version: 3.0.0-beta.90(graphql@16.9.0)(typescript@5.5.3)
+      payload-oauth2:
+        specifier: ^0.0.12
+        version: 0.0.12(payload@3.0.0-beta.90(graphql@16.9.0)(typescript@5.5.3))
       react:
         specifier: ^19.0.0-rc-6230622a1a-20240610
         version: 19.0.0-rc-fb9a90fa48-20240614
@@ -3250,6 +3253,11 @@ packages:
   path-type@4.0.0:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
+
+  payload-oauth2@0.0.12:
+    resolution: {integrity: sha512-V9WIv+kTd0KBDmDM/lfJ2h2+/E/LBcUKM0u8ZpHb83265xA1y9YW/icOaQSMCRsxsrGKVBBdiUyLqcU6JLVvbA==}
+    peerDependencies:
+      payload: 3.0.0-beta.78
 
   payload@3.0.0-beta.90:
     resolution: {integrity: sha512-dvvqHd1/y0sNhXPw98nHts9eB62MHOpNJIMwJbPfRH+n1J0YYWOr2frDteJIJMOhheUOXpBhfAQIBB0rgcxEmw==}
@@ -8057,6 +8065,10 @@ snapshots:
   path-to-regexp@6.2.2: {}
 
   path-type@4.0.0: {}
+
+  payload-oauth2@0.0.12(payload@3.0.0-beta.90(graphql@16.9.0)(typescript@5.5.3)):
+    dependencies:
+      payload: 3.0.0-beta.90(graphql@16.9.0)(typescript@5.5.3)
 
   payload@3.0.0-beta.90(graphql@16.9.0)(typescript@5.5.3):
     dependencies:

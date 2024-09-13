@@ -1,6 +1,6 @@
 import { isAdmin, isAdminFieldLevel } from '@/access/isAdmin'
 import { isAdminOrSelf } from '@/access/isAdminOrSelf'
-import type { CollectionConfig } from 'payload'
+import { CollectionConfig } from 'payload'
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -13,7 +13,11 @@ export const Users: CollectionConfig = {
     update: isAdmin,
     delete: isAdmin,
   },
-  auth: true,
+  auth: {
+    tokenExpiration: 60 * 60 * 24 * 1, // 1 day
+    maxLoginAttempts: 5,
+    lockTime: 60 * 60 * 1, // 1 hour
+  },
   fields: [
     {
       name: 'name',
@@ -38,6 +42,7 @@ export const Users: CollectionConfig = {
           value: 'developer',
         },
       ],
+      defaultValue: 'developer',
     },
     {
       name: 'phoneNumber',
@@ -61,6 +66,15 @@ export const Users: CollectionConfig = {
           value: 'user',
         },
       ],
+      defaultValue: 'user',
+    },
+    {
+      name: 'githubId',
+      type: 'text',
+      access: {
+        read: () => true,
+        update: () => false,
+      },
     },
   ],
 }
