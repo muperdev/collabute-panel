@@ -33,8 +33,8 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  cors: ['https://contribunation.com'],
-  csrf: ['https://contribunation.com'],
+  cors: ['https://collabute.com'],
+  csrf: ['https://collabute.com'],
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
   db: postgresAdapter({
     pool: {
@@ -77,9 +77,12 @@ export default buildConfig({
           githubId: user?.id,
         }
       },
-      successRedirect: () => '/admin',
+      successRedirect: (req) => {
+        console.log('successRedirect', req)
+        return 'https://collabute.com'
+      },
       failureRedirect: (req, err) => {
-        return '/admin/login'
+        return 'https://collabute.com/auth'
       },
     }),
     vercelBlobStorage({
