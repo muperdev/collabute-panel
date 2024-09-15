@@ -33,8 +33,8 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  cors: ['https://collabute.com', 'http://localhost:3000'],
-  csrf: ['https://collabute.com', 'http://localhost:3000'],
+  cors: ['https://collabute.com', 'http://localhost:3000', 'dev.collabute.com'],
+  csrf: ['https://collabute.com', 'http://localhost:3000', 'dev.collabute.com'],
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
   db: postgresAdapter({
     pool: {
