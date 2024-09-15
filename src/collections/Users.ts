@@ -20,18 +20,15 @@ export const Users: CollectionConfig = {
       path: '/validation',
       method: 'post',
       handler: async (req: any) => {
-        if (!req.user) {
-          return Response.json({status: 404, error: 'User not found'})
-        }
-        
         try {
+          const data = await req.json()
           const user = await req.payload.find({
             collection: 'users',
             where: {
-              email: req.user.email,
+              email: data.email,
             },
           })
-          
+
           if (user) {
             return Response.json(user)
           } else {
