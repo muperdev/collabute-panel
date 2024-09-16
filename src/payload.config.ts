@@ -34,10 +34,20 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   cors: {
-    origins: ['https://collabute.com', 'http://localhost:3000', 'dev.collabute.com'],
+    origins: [
+      'https://collabute.com',
+      'http://localhost:3000',
+      'https://dev.collabute.com',
+      'dev.collabute.com',
+    ],
     headers: ['Authorization', 'Content-Type'],
   },
-  csrf: ['https://collabute.com', 'http://localhost:3000', 'dev.collabute.com'],
+  csrf: [
+    'https://collabute.com',
+    'http://localhost:3000',
+    'https://dev.collabute.com',
+    'dev.collabute.com',
+  ],
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
   db: postgresAdapter({
     pool: {
