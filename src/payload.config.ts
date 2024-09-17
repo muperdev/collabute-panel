@@ -16,6 +16,7 @@ import Project from './collections/Project'
 import Stacks from './collections/Stacks'
 import Cto from './collections/Cto'
 import Startup from './collections/Startup'
+import { Validator } from './collections/Validator'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -27,40 +28,40 @@ export default buildConfig({
       afterLogin: ['src/component/oauth-login-button/index.tsx#OAuthLoginButton'],
     },
   },
-  collections: [Users, Project, Startup, Cto, Media, Blogs, Waitlists, Documents, Stacks],
+  collections: [Users, Project, Startup, Cto, Media, Blogs, Waitlists, Documents, Stacks, Validator],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   cors: '*',
-  csrf: ['*'],
-  endpoints: [
-    {
-      path: '/validation',
-      method: 'post',
-      handler: async (req: any) => {
-        try {
-          const data = await req.json()
-          const user = await req.payload.find({
-            collection: 'users',
-            where: {
-              email: data.email,
-            },
-          })
+  csrf: ['https://collabute.com', 'http://localhost:3000', 'http://localhost:3001'],
+  // endpoints: [
+  //   {
+  //     path: '/validation',
+  //     method: 'post',
+  //     handler: async (req: any) => {
+  //       try {
+  //         const data = await req.json()
+  //         const user = await req.payload.find({
+  //           collection: 'users',
+  //           where: {
+  //             email: data.email,
+  //           },
+  //         })
 
-          if (user) {
-            return Response.json(user)
-          } else {
-            return Response.json({ status: 404, error: 'User not found' })
-          }
-        } catch (error) {
-          console.error('Error fetching user:', error)
-          return Response.json({ status: 500, error: 'Internal server error' })
-        }
-      },
-    },
-  ],
+  //         if (user) {
+  //           return Response.json(user)
+  //         } else {
+  //           return Response.json({ status: 404, error: 'User not found' })
+  //         }
+  //       } catch (error) {
+  //         console.error('Error fetching user:', error)
+  //         return Response.json({ status: 500, error: 'Internal server error' })
+  //       }
+  //     },
+  //   },
+  // ],
   serverURL: process.env.SERVER_URL || '',
   db: postgresAdapter({
     pool: {
