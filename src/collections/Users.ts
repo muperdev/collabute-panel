@@ -15,32 +15,6 @@ export const Users: CollectionConfig = {
     update: isAdmin,
     delete: isAdmin,
   },
-  endpoints: [
-    {
-      path: '/validation',
-      method: 'post',
-      handler: async (req: any) => {
-        try {
-          const data = await req.json()
-          const user = await req.payload.find({
-            collection: 'users',
-            where: {
-              email: data.email,
-            },
-          })
-
-          if (user) {
-            return Response.json(user)
-          } else {
-            return Response.json({ status: 404, error: 'User not found' })
-          }
-        } catch (error) {
-          console.error('Error fetching user:', error)
-          return Response.json({ status: 500, error: 'Internal server error' })
-        }
-      },
-    },
-  ],
   auth: {
     tokenExpiration: 60 * 60 * 24 * 1, // 1 day
     maxLoginAttempts: 5,
