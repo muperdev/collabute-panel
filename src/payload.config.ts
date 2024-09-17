@@ -33,20 +33,33 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  cors: {
-    origins: [
-      'https://collabute.com',
-      'http://localhost:3000',
-      'https://dev.collabute.com',
-      'dev.collabute.com',
-    ],
-    headers: ['Authorization', 'Content-Type'],
-  },
-  csrf: [
-    'https://collabute.com',
-    'http://localhost:3000',
-    'https://dev.collabute.com',
-    'dev.collabute.com',
+  cors: '*',
+  csrf: ['*'],
+  endpoints: [
+    {
+      path: '/validation',
+      method: 'post',
+      handler: async (req: any) => {
+        try {
+          const data = await req.json()
+          const user = await req.payload.find({
+            collection: 'users',
+            where: {
+              email: data.email,
+            },
+          })
+
+          if (user) {
+            return Response.json(user)
+          } else {
+            return Response.json({ status: 404, error: 'User not found' })
+          }
+        } catch (error) {
+          console.error('Error fetching user:', error)
+          return Response.json({ status: 500, error: 'Internal server error' })
+        }
+      },
+    },
   ],
   serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
   db: postgresAdapter({
