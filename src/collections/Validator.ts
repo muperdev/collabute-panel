@@ -18,24 +18,36 @@ export const Validator: CollectionConfig = {
   ],
   hooks: {
     beforeChange: [
-      async ({ data, req }) => {
-        const { email } = data;
+      async ({ data, req, operation }) => {
+        if (operation === 'create') {
+          const { email } = data;
 
-        // Check if the email exists in the User collection
-        const existingUser = await req.payload.find({
-          collection: 'users',
-          where: {
-            email: {
-              equals: email,
+          // Check if the email exists in the User collection
+          const existingUser = await req.payload.find({
+            collection: 'users',
+            where: {
+              email: {
+                equals: email,
+              },
             },
-          },
-        });
+          });
 
-        if (existingUser.totalDocs === 0) {
-          throw new Error('Email does not exist in the User collection');
+          if (existingUser.totalDocs > 0) {
+            // If the email exists, return a 400 error
+            throw {
+              status: 400,
+              message: 'Email already exists in the User collection',
+            };
+          }
+
+          // If the email doesn't exist, return a success response
+          return {
+            ...data,
+            status: 200,
+            message: 'Email is available',
+          };
         }
 
-        // If the email exists, allow the record to be created
         return data;
       },
     ],
