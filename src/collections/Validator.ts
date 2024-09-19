@@ -17,10 +17,10 @@ export const Validator: CollectionConfig = {
     },
   ],
   hooks: {
-    beforeChange: [
-      async ({ data, req, operation }) => {
+    afterChange: [
+      async ({ doc, req, operation }) => {
         if (operation === 'create') {
-          const { email } = data;
+          const { email } = doc;
 
           // Check if the email exists in the User collection
           const existingUser = await req.payload.find({
@@ -31,7 +31,7 @@ export const Validator: CollectionConfig = {
               },
             },
           });
-
+          console.log(existingUser);
           if (existingUser.totalDocs > 0) {
             // If the email exists, return a 400 error
             throw {
@@ -42,13 +42,10 @@ export const Validator: CollectionConfig = {
 
           // If the email doesn't exist, return a success response
           return {
-            ...data,
             status: 200,
             message: 'Email is available',
           };
         }
-
-        return data;
       },
     ],
   },

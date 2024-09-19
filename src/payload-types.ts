@@ -19,6 +19,7 @@ export interface Config {
     waitlists: Waitlist;
     documents: Document;
     stacks: Stack;
+    validator: Validator;
     users: User;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -284,6 +285,16 @@ export interface Waitlist {
   fullName: string;
   email: string;
   userType: 'developer' | 'startup' | 'other';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "validator".
+ */
+export interface Validator {
+  id: number;
+  email: string;
   updatedAt: string;
   createdAt: string;
 }
