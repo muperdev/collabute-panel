@@ -154,6 +154,13 @@ const Project: CollectionConfig = {
       ],
       label: 'Project Tags',
     },
+    {
+      name: 'issues',
+      type: 'relationship',
+      relationTo: 'issues',
+      hasMany: true,
+      label: 'Issues',
+    },
   ],
 }
 
