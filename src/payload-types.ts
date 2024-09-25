@@ -12,7 +12,6 @@ export interface Config {
   };
   collections: {
     projects: Project;
-    startups: Startup;
     cto: Cto;
     media: Media;
     blogs: Blog;
@@ -20,6 +19,7 @@ export interface Config {
     documents: Document;
     stacks: Stack;
     validator: Validator;
+    issues: Issue;
     users: User;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -81,6 +81,7 @@ export interface Project {
         id?: string | null;
       }[]
     | null;
+  issues?: (number | Issue)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -91,10 +92,79 @@ export interface Project {
 export interface User {
   id: number;
   name: string;
-  type?: ('startup' | 'company' | 'developer') | null;
+  type: 'developer' | 'company' | 'startup';
   phoneNumber?: string | null;
   role?: ('admin' | 'user') | null;
   githubId?: string | null;
+  developerFields?: {
+    bio?: string | null;
+    dateJoined?: string | null;
+    profilePicture?: (number | null) | Media;
+    skills?:
+      | {
+          skill?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    experienceLevel?: ('junior' | 'mid_level' | 'senior' | 'lead' | 'architect') | null;
+    githubProfile?: string | null;
+    linkedinProfile?: string | null;
+    personalWebsite?: string | null;
+    primaryRole?:
+      | (
+          | 'Frontend Developer'
+          | 'Backend Developer'
+          | 'Full Stack Developer'
+          | 'Mobile Developer'
+          | 'DevOps Engineer'
+          | 'Data Scientist'
+          | 'UI/UX Designer'
+          | 'QA Engineer'
+          | 'Other'
+        )
+      | null;
+    availability?: ('full_time' | 'part_time' | 'contract' | 'freelance' | 'not_available') | null;
+    preferredWorkType?: ('remote' | 'on_site' | 'hybrid') | null;
+    education?:
+      | {
+          degree?: string | null;
+          institution?: string | null;
+          graduationYear?: number | null;
+          id?: string | null;
+        }[]
+      | null;
+    languages?:
+      | {
+          language?: string | null;
+          proficiency?: ('Beginner' | 'Intermediate' | 'Advanced' | 'Native') | null;
+          id?: string | null;
+        }[]
+      | null;
+    hourlyRate?: number | null;
+    preferredProjectDuration?:
+      | ('Less than 1 month' | '1-3 months' | '3-6 months' | '6-12 months' | 'More than 12 months')
+      | null;
+  };
+  startupFields?: {
+    description?: string | null;
+    foundingDate?: string | null;
+    cto?: (number | null) | User;
+    fundingInformation?: {
+      fundingStage?: ('Pre-seed' | 'Seed' | 'Series A' | 'Series B' | 'Series C+') | null;
+      totalFundingRaised?: number | null;
+      lastFundingDate?: string | null;
+    };
+    teamSize?: number | null;
+    productStage?: ('Idea' | 'Prototype' | 'MVP' | 'Beta' | 'Launched' | 'Growth') | null;
+  };
+  website?: string | null;
+  linkedinProfile?: string | null;
+  contactInformation: {
+    email: string;
+    phone?: string | null;
+    address?: string | null;
+  };
+  projects?: (number | Project)[] | null;
   sub?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -106,6 +176,25 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -155,52 +244,26 @@ export interface Stack {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "startups".
+ * via the `definition` "issues".
  */
-export interface Startup {
+export interface Issue {
   id: number;
-  name: string;
+  title: string;
   description?: string | null;
-  foundingDate?: string | null;
-  cto?: (number | null) | Cto;
-  licenseType?:
-    | (
-        | 'sole_proprietorship'
-        | 'partnership'
-        | 'llc'
-        | 'corporation'
-        | 'plc'
-        | 'cooperative'
-        | 'nonprofit_organization'
-        | 'branch_office'
-        | 'subsidiary'
-        | 'joint_venture'
-        | 'franchise'
-        | 'holding_company'
-      )
-    | null;
-  licenseFile?: (number | null) | Document;
-  website?: string | null;
-  industry?: string | null;
-  responsiblePerson: number | User;
-  contactInformation: {
-    email: string;
-    phone?: string | null;
-    address?: string | null;
-  };
-  legalInformation?: {
-    companyRegistrationNumber?: string | null;
-    taxIdentificationNumber?: string | null;
-  };
-  fundingInformation?: {
-    fundingStage?: ('Pre-seed' | 'Seed' | 'Series A' | 'Series B' | 'Series C+') | null;
-    totalFundingRaised?: number | null;
-    lastFundingDate?: string | null;
-  };
-  teamSize?: number | null;
-  productStage?: ('Idea' | 'Prototype' | 'MVP' | 'Beta' | 'Launched' | 'Growth') | null;
-  updatedAt: string;
+  status: 'open' | 'in_progress' | 'resolved' | 'closed';
+  priority: 'low' | 'medium' | 'high' | 'critical';
+  budget?: number | null;
+  assignee?: (number | null) | User;
+  reporter: number | User;
   createdAt: string;
+  updatedAt: string;
+  project: number | Project;
+  labels?:
+    | {
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -215,25 +278,6 @@ export interface Cto {
   availability?: boolean | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
