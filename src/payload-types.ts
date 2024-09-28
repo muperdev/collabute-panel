@@ -11,10 +11,16 @@ export interface Config {
     users: UserAuthOperations;
   };
   collections: {
-    users: User;
+    projects: Project;
+    cto: Cto;
     media: Media;
     blogs: Blog;
     waitlists: Waitlist;
+    documents: Document;
+    stacks: Stack;
+    validator: Validator;
+    issues: Issue;
+    users: User;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -47,14 +53,120 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  title: string;
+  description: string;
+  tasks?:
+    | {
+        task?: string | null;
+        status?: ('not-started' | 'in-progress' | 'completed') | null;
+        dueDate?: string | null;
+        assignee?: (number | null) | User;
+        priority?: ('low' | 'medium' | 'high') | null;
+        notes?: string | null;
+        attachments?: (number | null) | Document;
+        id?: string | null;
+      }[]
+    | null;
+  startDate: string;
+  endDate?: string | null;
+  status: 'planned' | 'in-progress' | 'completed' | 'on-hold';
+  budget?: number | null;
+  tags?:
+    | {
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  issues?: (number | Issue)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
   id: number;
   name: string;
-  whyTheyInterested?: string | null;
+  type: 'developer' | 'startup';
   phoneNumber?: string | null;
   role?: ('admin' | 'user') | null;
+  githubId?: string | null;
+  developerFields?: {
+    bio?: string | null;
+    dateJoined?: string | null;
+    profilePicture?: (number | null) | Media;
+    skills?:
+      | {
+          skill?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    experienceLevel?: ('junior' | 'mid_level' | 'senior' | 'lead' | 'architect') | null;
+    githubProfile?: string | null;
+    linkedinProfile?: string | null;
+    personalWebsite?: string | null;
+    primaryRole?:
+      | (
+          | 'Frontend Developer'
+          | 'Backend Developer'
+          | 'Full Stack Developer'
+          | 'Mobile Developer'
+          | 'DevOps Engineer'
+          | 'Data Scientist'
+          | 'UI/UX Designer'
+          | 'QA Engineer'
+          | 'Other'
+        )
+      | null;
+    availability?: ('full_time' | 'part_time' | 'contract' | 'freelance' | 'not_available') | null;
+    preferredWorkType?: ('remote' | 'on_site' | 'hybrid') | null;
+    education?:
+      | {
+          degree?: string | null;
+          institution?: string | null;
+          graduationYear?: number | null;
+          id?: string | null;
+        }[]
+      | null;
+    languages?:
+      | {
+          language?: string | null;
+          proficiency?: ('Beginner' | 'Intermediate' | 'Advanced' | 'Native') | null;
+          id?: string | null;
+        }[]
+      | null;
+    hourlyRate?: number | null;
+    preferredProjectDuration?:
+      | ('Less than 1 month' | '1-3 months' | '3-6 months' | '6-12 months' | 'More than 12 months')
+      | null;
+  };
+  startupFields?: {
+    companyName?: string | null;
+    description?: string | null;
+    foundingDate?: string | null;
+    cto?: (number | null) | User;
+    fundingInformation?: {
+      fundingStage?: ('Pre-seed' | 'Seed' | 'Series A' | 'Series B' | 'Series C+') | null;
+      totalFundingRaised?: number | null;
+      lastFundingDate?: string | null;
+    };
+    teamSize?: ('1-10' | '10-50' | '50-100' | '+100') | null;
+    productStage?: ('Idea' | 'Prototype' | 'MVP' | 'Beta' | 'Launched' | 'Growth') | null;
+  };
+  website?: string | null;
+  linkedinProfile?: string | null;
+  contactInformation: {
+    email: string;
+    phone?: string | null;
+    address?: string | null;
+  };
+  projects?: (number | Project)[] | null;
+  sub?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -84,6 +196,89 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents".
+ */
+export interface Document {
+  id: number;
+  title: string;
+  description?: string | null;
+  tags?:
+    | {
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  stacks?: (number | null) | Stack;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "stacks".
+ */
+export interface Stack {
+  id: number;
+  name: string;
+  description?: string | null;
+  technologies?:
+    | {
+        technology: string;
+        id?: string | null;
+      }[]
+    | null;
+  popularity: number;
+  use_cases?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "issues".
+ */
+export interface Issue {
+  id: number;
+  title: string;
+  description?: string | null;
+  status: 'open' | 'in_progress' | 'resolved' | 'closed';
+  priority: 'low' | 'medium' | 'high' | 'critical';
+  budget?: number | null;
+  assignee?: (number | null) | User;
+  reporter: number | User;
+  createdAt: string;
+  updatedAt: string;
+  project: number | Project;
+  labels?:
+    | {
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cto".
+ */
+export interface Cto {
+  id: number;
+  name: string;
+  experience: number;
+  specialization: string;
+  projects?: (number | Project)[] | null;
+  availability?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -135,6 +330,16 @@ export interface Waitlist {
   fullName: string;
   email: string;
   userType: 'developer' | 'startup' | 'other';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "validator".
+ */
+export interface Validator {
+  id: number;
+  email: string;
   updatedAt: string;
   createdAt: string;
 }

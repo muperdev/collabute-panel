@@ -14,18 +14,19 @@
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
   },
   "dependencies": {
-    "@payloadcms/db-postgres": "3.0.0-beta.90",
-    "@payloadcms/next": "3.0.0-beta.90",
-    "@payloadcms/plugin-cloud": "3.0.0-beta.90",
-    "@payloadcms/plugin-seo": "3.0.0-beta.90",
-    "@payloadcms/richtext-lexical": "3.0.0-beta.90",
-    "@payloadcms/storage-vercel-blob": "3.0.0-beta.90",
+    "@payloadcms/db-postgres": "3.0.0-beta.107",
+    "@payloadcms/next": "3.0.0-beta.107",
+    "@payloadcms/plugin-cloud": "3.0.0-beta.107",
+    "@payloadcms/plugin-seo": "3.0.0-beta.107",
+    "@payloadcms/richtext-lexical": "3.0.0-beta.107",
+    "@payloadcms/storage-vercel-blob": "3.0.0-beta.107",
     "cross-env": "^7.0.3",
     "graphql": "^16.8.1",
-    "next": "15.0.0-canary.53",
-    "payload": "3.0.0-beta.90",
-    "react": "^19.0.0-rc-6230622a1a-20240610",
-    "react-dom": "^19.0.0-rc-6230622a1a-20240610",
+    "next": "15.0.0-canary.104",
+    "payload": "3.0.0-beta.107",
+    "payload-oauth2": "^0.0.12",
+    "react": "19.0.0-rc-06d0b89e-20240801",
+    "react-dom": "19.0.0-rc-06d0b89e-20240801",
     "resend": "^4.0.0",
     "sharp": "0.32.6"
   },
@@ -34,7 +35,7 @@
     "@types/react": "npm:types-react@19.0.0-rc.0",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.0",
     "eslint": "^8",
-    "eslint-config-next": "15.0.0-canary.53",
+    "eslint-config-next": "15.0.0-canary.104",
     "typescript": "5.5.3"
   },
   "engines": {
