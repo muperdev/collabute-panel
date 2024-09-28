@@ -155,7 +155,7 @@ export interface User {
       totalFundingRaised?: number | null;
       lastFundingDate?: string | null;
     };
-    teamSize?: number | null;
+    teamSize?: ('1-10' | '10-50' | '50-100' | '+100') | null;
     productStage?: ('Idea' | 'Prototype' | 'MVP' | 'Beta' | 'Launched' | 'Growth') | null;
   };
   website?: string | null;
