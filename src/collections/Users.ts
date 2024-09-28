@@ -253,7 +253,7 @@ export const Users: CollectionConfig = {
       name: 'contactInformation',
       type: 'group',
       fields: [
-        { name: 'email', type: 'email', required: true },
+        { name: 'email', type: 'email' },
         { name: 'phone', type: 'text' },
         { name: 'address', type: 'textarea' },
       ],
