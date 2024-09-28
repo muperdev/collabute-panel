@@ -37,7 +37,6 @@ export const Users: CollectionConfig = {
       required: true,
       options: [
         { label: 'Developer', value: 'developer' },
-        { label: 'Company', value: 'company' },
         { label: 'Startup', value: 'startup' },
       ],
       defaultValue: 'developer',
@@ -190,7 +189,7 @@ export const Users: CollectionConfig = {
         },
       ],
     },
-    // Startup-specific fields
+    // startup fields
     {
       name: 'startupFields',
       type: 'group',
@@ -199,7 +198,13 @@ export const Users: CollectionConfig = {
       },
       fields: [
         {
+          name: 'companyName',
+          label: 'Company name',
+          type: 'text'
+        },
+        {
           name: 'description',
+          label: 'Description',
           type: 'textarea',
         },
         {
@@ -235,7 +240,6 @@ export const Users: CollectionConfig = {
         },
       ],
     },
-    // Common fields for all types
     {
       name: 'website',
       type: 'text',
