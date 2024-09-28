@@ -92,7 +92,7 @@ export interface Project {
 export interface User {
   id: number;
   name: string;
-  type: 'developer' | 'company' | 'startup';
+  type: 'developer' | 'startup';
   phoneNumber?: string | null;
   role?: ('admin' | 'user') | null;
   githubId?: string | null;
@@ -146,6 +146,7 @@ export interface User {
       | null;
   };
   startupFields?: {
+    companyName?: string | null;
     description?: string | null;
     foundingDate?: string | null;
     cto?: (number | null) | User;
