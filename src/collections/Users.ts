@@ -46,6 +46,24 @@ export const Users: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'type',
+      type: 'select',
+      options: [
+        {
+          label: 'Startup',
+          value: 'startup',
+        },
+        {
+          label: 'Company',
+          value: 'company',
+        },
+        {
+          label: 'Developer',
+          value: 'developer',
+        },
+      ],
+    },
+    {
       name: 'role',
       type: 'select',
       access: {
