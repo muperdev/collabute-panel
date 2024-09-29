@@ -46,24 +46,6 @@ export const Users: CollectionConfig = {
       type: 'text',
     },
     {
-      name: 'type',
-      type: 'select',
-      options: [
-        {
-          label: 'Startup',
-          value: 'startup',
-        },
-        {
-          label: 'Company',
-          value: 'company',
-        },
-        {
-          label: 'Developer',
-          value: 'developer',
-        },
-      ],
-    },
-    {
       name: 'role',
       type: 'select',
       access: {
@@ -218,7 +200,7 @@ export const Users: CollectionConfig = {
         {
           name: 'companyName',
           label: 'Company name',
-          type: 'text'
+          type: 'text',
         },
         {
           name: 'description',
@@ -250,7 +232,7 @@ export const Users: CollectionConfig = {
         {
           name: 'teamSize',
           type: 'select',
-          options: ['1-10', '10-50', '50-100', '+100']
+          options: ['1-10', '10-50', '50-100', '+100'],
         },
         {
           name: 'productStage',
