@@ -15,7 +15,6 @@ import Documents from './collections/Documents'
 import Project from './collections/Project'
 import Stacks from './collections/Stacks'
 import Cto from './collections/Cto'
-import { Validator } from './collections/Validator'
 import Issues from './collections/Issues'
 
 const filename = fileURLToPath(import.meta.url)
@@ -37,7 +36,6 @@ export default buildConfig({
     Waitlists,
     Documents,
     Stacks,
-    Validator,
     Issues,
   ],
   editor: lexicalEditor(),
