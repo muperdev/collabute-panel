@@ -14,7 +14,8 @@ export const Users: CollectionConfig = {
       method: 'post',
       handler: async (req: any) => {
         try {
-          const { email } = req.body
+          const data = await req.json()
+          const { email } = data
           const existingUser = await req.payload.find({
             collection: 'users',
             where: {
@@ -23,20 +24,22 @@ export const Users: CollectionConfig = {
               },
             },
           })
-
           if (existingUser.totalDocs > 0) {
             return Response.json({
               message: 'Email is already in use',
+              status: 400,
             })
           } else {
             return Response.json({
               message: 'Email is available',
+              status: 200,
             })
           }
         } catch (error) {
           console.error('Error checking email:', error)
           return Response.json({
             message: 'Internal server error',
+            status: 500,
           })
         }
       },
