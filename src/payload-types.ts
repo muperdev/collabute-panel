@@ -160,8 +160,8 @@ export interface User {
   };
   website?: string | null;
   linkedinProfile?: string | null;
-  contactInformation: {
-    email: string;
+  contactInformation?: {
+    email?: string | null;
     phone?: string | null;
     address?: string | null;
   };
