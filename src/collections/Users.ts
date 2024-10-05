@@ -8,53 +8,15 @@ export const Users: CollectionConfig = {
     useAsTitle: 'name',
     group: 'Users',
   },
-  endpoints: [
-    {
-      path: '/validator',
-      method: 'post',
-      handler: async (req: any) => {
-        try {
-          const data = await req.json()
-          const { email } = data
-          const existingUser = await req.payload.find({
-            collection: 'users',
-            where: {
-              email: {
-                equals: email,
-              },
-            },
-          })
-          if (existingUser.totalDocs > 0) {
-            return Response.json({
-              message: 'Email is already in use',
-              status: 400,
-            })
-          } else {
-            return Response.json({
-              message: 'Email is available',
-              status: 200,
-            })
-          }
-        } catch (error) {
-          console.error('Error checking email:', error)
-          return Response.json({
-            message: 'Internal server error',
-            status: 500,
-          })
-        }
-      },
-    },
-  ],
   access: {
     create: () => true,
     read: isAdminOrSelf,
     update: isAdminOrSelf,
-    delete: isAdmin,
+    delete: () => true,
   },
   auth: {
     tokenExpiration: 60 * 60 * 24 * 1, // 1 day
     maxLoginAttempts: 5,
-    lockTime: 60 * 60 * 1, // 1 hour
   },
   fields: [
     {
