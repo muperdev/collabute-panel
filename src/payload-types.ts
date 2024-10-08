@@ -98,6 +98,20 @@ export interface User {
   githubId?: string | null;
   developerFields?: {
     bio?: string | null;
+    issues?: (number | Issue)[] | null;
+    totalPayment?: number | null;
+    payments?:
+      | {
+          paymentDate?: string | null;
+          paymentAmount?: number | null;
+          paymentType?: ('income' | 'withdrawal' | 'tip') | null;
+          paymentMethod?: string | null;
+          paymentStatus?: ('pending' | 'completed' | 'failed') | null;
+          paymentReference?: string | null;
+          paymentDescription?: string | null;
+          id?: string | null;
+        }[]
+      | null;
     dateJoined?: string | null;
     profilePicture?: (number | null) | Media;
     skills?:
@@ -159,7 +173,6 @@ export interface User {
     productStage?: ('Idea' | 'Prototype' | 'MVP' | 'Beta' | 'Launched' | 'Growth') | null;
   };
   website?: string | null;
-  linkedinProfile?: string | null;
   contactInformation?: {
     email?: string | null;
     phone?: string | null;
@@ -177,6 +190,29 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "issues".
+ */
+export interface Issue {
+  id: number;
+  title: string;
+  description?: string | null;
+  status: 'open' | 'in_progress' | 'resolved' | 'closed';
+  priority: 'low' | 'medium' | 'high' | 'critical';
+  budget?: number | null;
+  assignee?: (number | null) | User;
+  reporter: number | User;
+  createdAt: string;
+  updatedAt: string;
+  project: number | Project;
+  labels?:
+    | {
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -242,29 +278,6 @@ export interface Stack {
   use_cases?: string | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "issues".
- */
-export interface Issue {
-  id: number;
-  title: string;
-  description?: string | null;
-  status: 'open' | 'in_progress' | 'resolved' | 'closed';
-  priority: 'low' | 'medium' | 'high' | 'critical';
-  budget?: number | null;
-  assignee?: (number | null) | User;
-  reporter: number | User;
-  createdAt: string;
-  updatedAt: string;
-  project: number | Project;
-  labels?:
-    | {
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
