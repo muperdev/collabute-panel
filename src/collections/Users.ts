@@ -12,7 +12,7 @@ export const Users: CollectionConfig = {
     create: () => true,
     read: isAdminOrSelf,
     update: isAdminOrSelf,
-    delete: () => true,
+    delete: isAdminOrSelf,
   },
   auth: {
     tokenExpiration: 60 * 60 * 24 * 1, // 1 day
@@ -68,7 +68,7 @@ export const Users: CollectionConfig = {
     },
     // Developer-specific fields
     {
-      name: 'developerFields',
+      name: 'developerFields', // Changed from 'developerFields'
       type: 'group',
       admin: {
         condition: (data) => data.type === 'developer',
@@ -77,6 +77,43 @@ export const Users: CollectionConfig = {
         {
           name: 'bio',
           type: 'textarea',
+        },
+        {
+          name: 'issues',
+          type: 'relationship',
+          relationTo: 'issues',
+          hasMany: true,
+        },
+        {
+          name: 'totalPayment',
+          type: 'number',
+        },
+        {
+          name: 'payments',
+          type: 'array',
+          fields: [
+            { name: 'paymentDate', type: 'date' },
+            { name: 'paymentAmount', type: 'number' },
+            {
+              name: 'paymentType',
+              type: 'select',
+              options: ['income', 'withdrawal', 'tip'],
+            },
+            { name: 'paymentMethod', type: 'text' },
+            {
+              name: 'paymentStatus',
+              type: 'select',
+              options: ['pending', 'completed', 'failed'],
+            },
+            {
+              name: 'paymentReference',
+              type: 'text',
+            },
+            {
+              name: 'paymentDescription',
+              type: 'textarea',
+            },
+          ],
         },
         {
           name: 'dateJoined',
@@ -242,10 +279,6 @@ export const Users: CollectionConfig = {
     },
     {
       name: 'website',
-      type: 'text',
-    },
-    {
-      name: 'linkedinProfile',
       type: 'text',
     },
     {
