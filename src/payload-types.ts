@@ -96,6 +96,7 @@ export interface User {
   phoneNumber?: string | null;
   role?: ('admin' | 'user') | null;
   githubId?: string | null;
+  wallet?: number | null;
   developerFields?: {
     bio?: string | null;
     issues?: (number | Issue)[] | null;
