@@ -1,4 +1,4 @@
-import { isAdmin, isAdminFieldLevel } from '@/access/isAdmin'
+import { isAdminFieldLevel } from '@/access/isAdmin'
 import { isAdminOrSelf } from '@/access/isAdminOrSelf'
 import { CollectionConfig } from 'payload'
 
@@ -65,6 +65,12 @@ export const Users: CollectionConfig = {
         read: () => true,
         update: () => false,
       },
+    },
+    {
+      name: 'wallet',
+      label: 'Wallet',
+      type: 'number',
+      defaultValue: 0,
     },
     // Developer-specific fields
     {
