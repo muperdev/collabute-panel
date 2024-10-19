@@ -18,20 +18,29 @@ const Project: CollectionConfig = {
       required: true,
       label: 'Project Description',
     },
-    // {
-    //   name: 'company',
-    //   type: 'relationship',
-    //   relationTo: 'companies',
-    //   required: true,
-    //   label: 'Company',
-    // },
-    // {
-    //   name: 'developers',
-    //   type: 'relationship',
-    //   relationTo: 'developers',
-    //   hasMany: true,
-    //   label: 'Developers',
-    // },
+    {
+      name: 'projectType',
+      type: 'select',
+      options: [
+        {
+          label: 'Normal',
+          value: 'normal',
+        },
+        {
+          label: 'Urgent',
+          value: 'urgent',
+        },
+        {
+          label: 'Featured',
+          value: 'featured',
+        },
+        {
+          label: 'Trending',
+          value: 'trending',
+        },
+      ],
+      label: 'Project Type',
+    },
     {
       name: 'tasks',
       label: 'Tasks',
@@ -51,7 +60,7 @@ const Project: CollectionConfig = {
               value: 'not-started',
             },
             {
-              label: 'In Progress', 
+              label: 'In Progress',
               value: 'in-progress',
             },
             {
@@ -99,7 +108,7 @@ const Project: CollectionConfig = {
           name: 'attachments',
           type: 'relationship',
           relationTo: 'documents',
-        }
+        },
       ],
     },
     {
