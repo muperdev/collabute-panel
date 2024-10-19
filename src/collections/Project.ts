@@ -164,6 +164,13 @@ const Project: CollectionConfig = {
       label: 'Project Tags',
     },
     {
+      name: 'collabuters',
+      type: 'relationship',
+      relationTo: 'users',
+      hasMany: true,
+      label: 'Collabuters',
+    },
+    {
       name: 'issues',
       type: 'relationship',
       relationTo: 'issues',

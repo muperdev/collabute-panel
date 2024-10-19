@@ -59,6 +59,7 @@ export interface Project {
   id: number;
   title: string;
   description: string;
+  projectType?: ('normal' | 'urgent' | 'featured' | 'trending') | null;
   tasks?:
     | {
         task?: string | null;
@@ -81,6 +82,7 @@ export interface Project {
         id?: string | null;
       }[]
     | null;
+  collabuters?: (number | User)[] | null;
   issues?: (number | Issue)[] | null;
   updatedAt: string;
   createdAt: string;
