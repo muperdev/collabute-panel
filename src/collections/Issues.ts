@@ -1,15 +1,41 @@
-import { CollectionConfig } from 'payload'
+import { isAdminOrSelf } from '@/access/isAdminOrSelf'
+import { CollectionConfig, FieldHook } from 'payload'
+
+const formatSlug: FieldHook = async ({ value, data }) => {
+  if (typeof data?.title === 'string') {
+    return data.title.replace(/ /g, '-').toLowerCase()
+  }
+  return value
+}
 
 const Issues: CollectionConfig = {
   slug: 'issues',
   admin: {
     useAsTitle: 'title',
   },
+  access: {
+    read: () => true,
+    create: isAdminOrSelf,
+    update: isAdminOrSelf,
+    delete: isAdminOrSelf,
+  },
   fields: [
     {
       name: 'title',
       type: 'text',
       required: true,
+    },
+    {
+      name: 'slug',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+      },
+      hooks: {
+        beforeChange: [formatSlug],
+      },
+      label: 'Issue Slug',
     },
     {
       name: 'description',
