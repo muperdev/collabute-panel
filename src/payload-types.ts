@@ -59,6 +59,7 @@ export interface Project {
   id: number;
   title: string;
   description: string;
+  slug?: string | null;
   projectType?: ('normal' | 'urgent' | 'featured' | 'trending') | null;
   tasks?:
     | {
@@ -201,6 +202,7 @@ export interface User {
 export interface Issue {
   id: number;
   title: string;
+  slug?: string | null;
   description?: string | null;
   status: 'open' | 'in_progress' | 'resolved' | 'closed';
   priority: 'low' | 'medium' | 'high' | 'critical';

@@ -1,4 +1,11 @@
-import { CollectionConfig } from 'payload'
+import { CollectionConfig, FieldHook } from 'payload'
+
+const formatSlug: FieldHook = async ({ value, data }) => {
+  if (typeof data?.title === 'string') {
+    return data.title.replace(/ /g, '-').toLowerCase()
+  }
+  return value
+}
 
 const Issues: CollectionConfig = {
   slug: 'issues',
@@ -10,6 +17,18 @@ const Issues: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+    },
+    {
+      name: 'slug',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+      },
+      hooks: {
+        beforeChange: [formatSlug],
+      },
+      label: 'Issue Slug',
     },
     {
       name: 'description',
